@@ -1,0 +1,7 @@
+[package]
+name = "rurl"
+version = "0.1.0"
+authors = ["Julien Giovaresco <dev@giovaresco.fr>"]
+edition = "2018"
+
+[dependencies]
