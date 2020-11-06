@@ -5,4 +5,9 @@ authors = ["Julien Giovaresco <dev@giovaresco.fr>"]
 edition = "2018"
 
 [dependencies]
-clap="2.33.3"
+clap = "2.33.3"
+
+[dev-dependencies.cargo-husky]
+version = "1"
+default-features = false
+features = ["precommit-hook", "run-cargo-fmt", "run-cargo-clippy", "run-cargo-test", ]
