@@ -5,3 +5,4 @@ authors = ["Julien Giovaresco <dev@giovaresco.fr>"]
 edition = "2018"
 
 [dependencies]
+clap="2.33.3"
