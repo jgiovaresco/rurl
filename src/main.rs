@@ -1,8 +1,10 @@
 extern crate clap;
 
+mod printer;
 mod requester;
 
-use clap::{App, Arg};
+use clap::{App, Arg, ArgMatches};
+use printer::print;
 use requester::request;
 use reqwest::Url;
 
@@ -19,11 +21,15 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         )
         .get_matches();
 
-    let url_input = matches.value_of("URL").unwrap();
-    let url = Url::parse(url_input).unwrap();
+    let url = read_url(matches);
 
-    let body = request(url).await?;
-    println!("{}", body);
+    let body = request(url).await;
+    print(body, &mut std::io::stdout(), &mut std::io::stderr())?;
 
     Ok(())
+}
+
+fn read_url(matches: ArgMatches) -> Url {
+    let url_input = matches.value_of("URL").unwrap();
+    Url::parse(url_input).unwrap()
 }
