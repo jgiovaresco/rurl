@@ -4,7 +4,8 @@ mod printer;
 mod requester;
 
 use clap::{App, Arg, ArgMatches};
-use printer::print;
+use printer::print::Print;
+use printer::simple_printer::SimplePrinter;
 use requester::request;
 use reqwest::Url;
 
@@ -24,7 +25,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let url = read_url(matches);
 
     let body = request(url).await;
-    print(body, &mut std::io::stdout(), &mut std::io::stderr())?;
+
+    print_result(&body);
 
     Ok(())
 }
@@ -32,4 +34,11 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 fn read_url(matches: ArgMatches) -> Url {
     let url_input = matches.value_of("URL").unwrap();
     Url::parse(url_input).unwrap()
+}
+
+fn print_result(result: &Result<String, Box<dyn std::error::Error>>) {
+    let mut std = std::io::stdout();
+    let mut err = std::io::stderr();
+    let mut printer = SimplePrinter::new(&mut std, &mut err);
+    printer.print(result).expect("Fail to print the result");
 }
