@@ -6,8 +6,8 @@ mod requester;
 use clap::{App, Arg, ArgMatches};
 use printer::print::Print;
 use printer::simple_printer::SimplePrinter;
-use requester::request;
-use reqwest::Url;
+use requester::request::Request;
+use requester::reqwest_requester::ReqwestRequester;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -22,18 +22,17 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         )
         .get_matches();
 
+    let requester = ReqwestRequester::new();
     let url = read_url(matches);
-
-    let body = request(url).await;
+    let body = requester.request(url).await;
 
     print_result(&body);
 
     Ok(())
 }
 
-fn read_url(matches: ArgMatches) -> Url {
-    let url_input = matches.value_of("URL").unwrap();
-    Url::parse(url_input).unwrap()
+fn read_url(matches: ArgMatches) -> String {
+    String::from(matches.value_of("URL").unwrap())
 }
 
 fn print_result(result: &Result<String, Box<dyn std::error::Error>>) {

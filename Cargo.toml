@@ -5,6 +5,7 @@ authors = ["Julien Giovaresco <dev@giovaresco.fr>"]
 edition = "2018"
 
 [dependencies]
+async-trait = "0.1.41"
 clap = "2.33.3"
 reqwest = "0.10.8"
 tokio = { version = "0.2.22", features = ["full"] }
