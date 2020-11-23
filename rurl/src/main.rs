@@ -1,13 +1,8 @@
 extern crate clap;
 
-mod printer;
-mod requester;
-
 use clap::{App, Arg, ArgMatches};
-use printer::print::Print;
-use printer::simple_printer::SimplePrinter;
-use requester::request::Request;
-use requester::reqwest_requester::ReqwestRequester;
+use rurllib::{Print, SimplePrinter};
+use rurllib::{Request, ReqwestRequester};
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -22,7 +17,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         )
         .get_matches();
 
-    let requester = ReqwestRequester::new();
+    let requester = ReqwestRequester::default();
     let url = read_url(matches);
     let body = requester.request(url).await;
 

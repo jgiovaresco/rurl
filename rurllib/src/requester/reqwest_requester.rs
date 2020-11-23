@@ -5,9 +5,9 @@ use std::error::Error;
 
 pub struct ReqwestRequester {}
 
-impl ReqwestRequester {
-    pub fn new() -> ReqwestRequester {
-        ReqwestRequester {}
+impl Default for ReqwestRequester {
+    fn default() -> Self {
+        Self {}
     }
 }
 

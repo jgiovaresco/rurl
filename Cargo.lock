@@ -765,8 +765,17 @@ dependencies = [
  "async-trait",
  "cargo-husky",
  "clap",
- "reqwest",
+ "rurllib",
  "tokio",
+]
+
+[[package]]
+name = "rurllib"
+version = "0.1.0"
+dependencies = [
+ "async-trait",
+ "cargo-husky",
+ "reqwest",
 ]
 
 [[package]]
